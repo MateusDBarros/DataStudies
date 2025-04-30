@@ -27,19 +27,17 @@ for item in df['Produto']:
 print(itens)
 
 
-venda_produto = []
-for item in itens:
-    venda_produto = df[item]['Vendas'].sum()
+venda_produto = df.groupby('Produto')['Vendas'].sum()
 
 print(venda_produto)
 
-# fig, ax = plt.subplots()
-# bar_label = ['orange', 'red', 'blue']
-# bar_colors = ['tab:orange', 'tab:red', 'tab:blue']
-#
-# ax.bar(eletronicos, regiao,  color=bar_colors)
-#
-# ax.set_title('Vendas por Produtos')
-# ax.set_ylabel('Vendas')
-#
-# plt.show()
+fig, ax = plt.subplots()
+bar_label = ['orange', 'red', 'blue']
+bar_colors = ['tab:orange', 'tab:red', 'tab:blue']
+
+ax.bar(venda_produto.index, venda_produto.values, color=bar_colors)
+
+ax.set_title('Vendas por Produtos')
+ax.set_ylabel('Vendas')
+
+plt.show()
